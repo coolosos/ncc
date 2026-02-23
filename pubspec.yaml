@@ -15,8 +15,8 @@ environment:
   sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
-  http: ">=1.5.0 <2.0.0"
-  meta: ">=1.16.0 <2.0.0"
+  http: ^1.5.0
+  meta: ^1.16.0
 
 dev_dependencies:
   coolint: ^2.1.2
