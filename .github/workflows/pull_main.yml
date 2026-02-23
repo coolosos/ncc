@@ -13,7 +13,7 @@ jobs:
     if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v6
       - uses: streetsidesoftware/cspell-action@v7.2.1
   validate:
     name: Analyse
@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Set up Dart SDK
         uses: dart-lang/setup-dart@v1.7.1
       - name: Install dependencies
