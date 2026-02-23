@@ -1,3 +1,13 @@
+## 1.0.0 - 2026-02-23
+### Fixed
+- Fixed broken badge links in README.md to ensure correct visualization on pub.dev.
+### Changed
+- Standardized dependency versions for `http` and `meta` using caret syntax (`^`) for better compatibility and compliance with pub.dev standards.
+- Improved SEO by adding relevant topics and refining the package description in pubspec.yaml.
+### Added
+- Added "Maintainers" section to README.md, including GitHub profile integration.
+- Official stable release.
+
 ## 0.0.6 - 2025-10-27
 ### Breaking change
 - NetworkObservable is now solely responsible for managing local observers and notifying them of network events.
