@@ -130,6 +130,19 @@ dart test
 
 ---
 
+## Maintainers ✨
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Mithos5r"><img src="https://github.com/Mithos5r.png?size=100" width="100px;" alt="Cayetano Bañón Rubio"/><br /><sub><b>Cayetano Bañón Rubio</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/3d24rd0"><img src="https://github.com/3d24rd0.png?size=100" width="100px;" alt="Eduardo Martínez Catalá"/><br /><sub><b>Eduardo Martínez Catalá</b></sub></a></td><td align="center" valign="top" width="14.28%"><a href="https://github.com/GsusBS"><img src="https://github.com/GsusBS.png?size=100" width="100px;" alt="Jesus Bernabeu"/><br /><sub><b>Jesus Bernabeu</b></sub></a></td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
 ## 📄 License
 
 MIT © 2025 [Coolosos](https://github.com/coolosos)
