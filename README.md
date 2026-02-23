@@ -2,14 +2,14 @@
 
 A robust Dart package for efficient network request handling, session management, real-time network state tracking, and seamless error handling for modern applications.
 
-[![Pub Version](https://badgen.net/pub/v/network_cool_client)](https://pub.dev/packages/network_cool_client/)
-[![Pub Likes](https://badgen.net/pub/likes/network_cool_client)](https://pub.dev/packages/network_cool_client/score)
-[![Pub Points](https://badgen.net/pub/points/network_cool_client)](https://pub.dev/packages/network_cool_client/score)
-[![Pub Downloads](https://badgen.net/pub/dm/network_cool_client)](https://pub.dev/packages/network_cool_client)
-[![Dart SDK Version](https://badgen.net/pub/sdk-version/network_cool_client)](https://pub.dev/packages/network_cool_client/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/coolosos/network_cool_client/blob/main/LICENSE)
+[![Pub Version](https://badgen.net/pub/v/ncc)](https://pub.dev/packages/ncc/)
+[![Pub Likes](https://badgen.net/pub/likes/ncc)](https://pub.dev/packages/ncc/score)
+[![Pub Points](https://badgen.net/pub/points/ncc)](https://pub.dev/packages/ncc/score)
+[![Pub Downloads](https://badgen.net/pub/dm/ncc)](https://pub.dev/packages/ncc)
+[![Dart SDK Version](https://badgen.net/pub/sdk-version/ncc)](https://pub.dev/packages/ncc/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/coolosos/ncc/blob/main/LICENSE)
 [![](https://img.shields.io/badge/linted%20by-coolint-0553B1)](https://pub.dev/packages/coolint)
-[![codecov](https://codecov.io/gh/coolosos/networkcoolclient/graph/badge.svg)](https://codecov.io/gh/coolosos/networkcoolclient)
+[![codecov](https://codecov.io/gh/coolosos/ncc/graph/badge.svg)](https://codecov.io/gh/coolosos/ncc)
 
 ---
 
@@ -127,6 +127,19 @@ To run tests and see code coverage:
 ```bash
 dart test
 ```
+
+---
+
+## Maintainers ✨
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Mithos5r"><img src="https://github.com/Mithos5r.png?size=100" width="100px;" alt="Cayetano Bañón Rubio"/><br /><sub><b>Cayetano Bañón Rubio</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/3d24rd0"><img src="https://github.com/3d24rd0.png?size=100" width="100px;" alt="Eduardo Martínez Catalá"/><br /><sub><b>Eduardo Martínez Catalá</b></sub></a></td><td align="center" valign="top" width="14.28%"><a href="https://github.com/GsusBS"><img src="https://github.com/GsusBS.png?size=100" width="100px;" alt="Jesus Bernabeu"/><br /><sub><b>Jesus Bernabeu</b></sub></a></td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
