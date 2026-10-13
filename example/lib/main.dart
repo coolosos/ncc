@@ -34,5 +34,5 @@ Future<void> main(List<String> args) async {
     Uri.parse('https://jsonplaceholder.typicode.com/posts/1'),
   );
 
-  exit(1);
+  exit(0);
 }
