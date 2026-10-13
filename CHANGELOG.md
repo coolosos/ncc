@@ -6,6 +6,12 @@
 - Adopted `coolint` `^3.0.0` and resolved all new analyzer diagnostics (strict inference, `async_return_with_no_await`, `comment_references` and empty container bodies).
 - Upgraded `http` to `^1.6.0` and `meta` to `^1.19.0`.
 - Reformatted the whole project with the Dart 3.13 formatter.
+### Docs
+- Corrected the package name and installation snippet in the README (`ncc`, `^2.0.0`).
+### Tooling
+- Widened the CI format check to the whole repository (`dart format .`).
+- Added analyze and format validation steps to the publish workflow.
+- Fixed the example entrypoint to exit successfully (`0`).
 
 ## 1.0.0 - 2026-02-23
 ### Fixed
