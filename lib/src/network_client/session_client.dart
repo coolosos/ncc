@@ -51,11 +51,22 @@ abstract base class SessionClient extends NccClient {
   /// Saves cookies from the response to maintain session state.
   /// [response] - The HTTP response that may contain cookies.
   void _saveCookies(Response response) {
-    // Check if the response contains any cookies in the 'Set-Cookie' header.
-    final setCookies = response.headers[HttpHeaders.setCookieHeader];
-    if (setCookies?.isNotEmpty ?? false) {
-      _sessionStateManager.setCookie(id, setCookies);
-    }
+    // Retrieve each `Set-Cookie` header value individually. Reading
+    // `response.headers['set-cookie']` collapses every cookie into a single
+    // comma-separated string and also breaks on cookies whose attributes
+    // contain commas (e.g. the `Expires` date).
+    final setCookies =
+        response.headersSplitValues[HttpHeaders.setCookieHeader] ?? const [];
+
+    // Keep only the `name=value` pair of each cookie, dropping its attributes.
+    final cookies = setCookies
+        .map((value) => value.split(';').first.trim())
+        .where((value) => value.isNotEmpty)
+        .join('; ');
+
+    if (cookies.isEmpty) return;
+
+    _sessionStateManager.setCookie(id, cookies);
   }
 
   /// Abstract method to retrieve the bearer token used for authentication.
