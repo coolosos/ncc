@@ -5,11 +5,7 @@ import 'package:ncc/ncc.dart';
 import '../observer/custom_network_observer.dart';
 
 final class MySessionClient extends SessionClient {
-  MySessionClient()
-      : super(
-          id: 'my-session-client',
-          client: Client(),
-        );
+  new() : super(id: 'my-session-client', client: Client());
 
   @override
   Future<String?> getBearerToken() async {
@@ -40,8 +36,9 @@ void main() async {
       ),
     );
 
-  final response = await client
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/posts/1'));
+  final response = await client.get(
+    Uri.parse('https://jsonplaceholder.typicode.com/posts/1'),
+  );
 
   log(response.body);
 }

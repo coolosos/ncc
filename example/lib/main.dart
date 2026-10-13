@@ -22,15 +22,17 @@ Future<void> main(List<String> args) async {
       ),
     );
 
-  final noSessionRequest = await client
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/posts/1'));
+  final noSessionRequest = await client.get(
+    Uri.parse('https://jsonplaceholder.typicode.com/posts/1'),
+  );
 
   log(
     'Response body from no session ${noSessionRequest.body}\n${noSessionRequest.request?.headers}',
   );
 
-  await sessionClient
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/posts/1'));
+  await sessionClient.get(
+    Uri.parse('https://jsonplaceholder.typicode.com/posts/1'),
+  );
 
   exit(1);
 }
