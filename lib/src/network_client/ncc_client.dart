@@ -91,24 +91,22 @@ class NccClient extends BaseClient with NetworkObservable {
     }
   }
 
-  /// Handles errors, updating network status and notifying observers.
+  /// Handles errors, updating network status and notifying observers exactly once.
   void _handleErrors(Object error, StackTrace? stackTrace) {
     NetworkException? exception;
     // Determine the network state based on the error type.
     final isOffline = error is SocketException || error is ClientException;
     if (isOffline) {
       _changeNetworkStatus(newState: NetworkState.offline);
-      _onError(error: NetworkAvailabilityException(), stackTrace: stackTrace);
       exception = NetworkAvailabilityException();
-    }
-
-    ///Determine the case when the server is under maintenance.
-    if (error is ServerAvailabilityException) {
+    } else if (error is ServerAvailabilityException) {
+      // Determine the case when the server is under maintenance.
       _changeNetworkStatus(newState: NetworkState.underMaintenance);
       exception = ServerAvailabilityException();
     }
 
-    _onError(error: error, stackTrace: stackTrace);
+    // Notify observers a single time, preferring the mapped domain exception.
+    _onError(error: exception ?? error, stackTrace: stackTrace);
 
     if (exception case final exception?) {
       throw exception;

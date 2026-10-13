@@ -1,7 +1,9 @@
 import 'package:ncc/ncc.dart';
 import 'package:test/test.dart';
 
+import 'clients/mock_client_exception.dart';
 import 'clients/mock_session_broke_exception.dart';
+import 'clients/mock_socket_exception.dart';
 import 'clients/mock_success_request_client.dart';
 import 'clients/mock_undermantenance_client_exception.dart';
 import 'observer/client_observer.dart';
@@ -69,6 +71,29 @@ void main() {
         observer.callingActions.contains(ClientObserverAction.onError),
         true,
       );
+    });
+    test('on error is notified a single time for offline errors', () async {
+      final offlineClients = [MockSocketException(), MockClientException()];
+
+      for (final (index, offlineClient) in offlineClients.indexed) {
+        final observer = ClientObserver();
+        final client = TestNccClient(
+          client: offlineClient,
+          id: 'offlineSingleNotification$index',
+        )..addObserver(observer);
+
+        await expectLater(
+          () => client.get(Uri.dataFromString('test_dart.es')),
+          throwsA(isA<NetworkAvailabilityException>()),
+        );
+
+        expect(
+          observer.callingActions
+              .where((action) => action == ClientObserverAction.onError)
+              .length,
+          1,
+        );
+      }
     });
     test('on dispose', () async {
       final observer = ClientObserver();
