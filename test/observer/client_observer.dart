@@ -1,7 +1,7 @@
 import 'package:ncc/ncc.dart';
 
 final class ClientObserver implements NetworkObserver {
-  ClientObserver();
+  new();
   final List<ClientObserverAction> callingActions = [];
   @override
   void dispose() {

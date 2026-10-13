@@ -1,6 +1,6 @@
 name: ncc
 description: "A robust Dart package for efficient network request handling, session management, real-time network state tracking, and seamless error handling for modern applications."
-version: 1.0.0
+version: 2.0.0
 
 repository: https://github.com/coolosos/ncc
 issue_tracker: https://github.com/coolosos/ncc/issues
@@ -13,12 +13,12 @@ topics:
   - rest-api
 
 environment:
-  sdk: ">=3.5.0 <4.0.0"
+  sdk: ">=3.13.0 <4.0.0"
 
 dependencies:
-  http: ^1.5.0
-  meta: ^1.16.0
+  http: ^1.6.0
+  meta: ^1.19.0
 
 dev_dependencies:
-  coolint: ^2.1.2
+  coolint: ^3.0.0
   test: ^1.26.3

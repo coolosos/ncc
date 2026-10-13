@@ -35,7 +35,7 @@ abstract base class SessionClient extends NccClient {
   /// [defaultHeaders] - Default headers to be sent with every request.
   /// [observers] - Observers that listener every request.
   /// [sessionStateManager] - The manager for handling session state, such as cookies.
-  SessionClient({
+  new({
     required super.id,
     required super.client,
     super.timeout = const Duration(seconds: 30),
@@ -43,7 +43,7 @@ abstract base class SessionClient extends NccClient {
     super.observers,
     SessionStateManager? sessionStateManager,
   }) : _sessionStateManager =
-            sessionStateManager ?? InMemorySessionStateManager();
+           sessionStateManager ?? InMemorySessionStateManager();
   static final _concurrencyManager = _ConcurrencyManager();
 
   final SessionStateManager _sessionStateManager;
@@ -111,10 +111,7 @@ abstract base class SessionClient extends NccClient {
 
     // If a session cookie is available, add it to the headers.
     if (cookie?.isNotEmpty ?? false) {
-      finalHeaders.putIfAbsent(
-        HttpHeaders.cookieHeader,
-        () => cookie ?? '',
-      );
+      finalHeaders.putIfAbsent(HttpHeaders.cookieHeader, () => cookie ?? '');
     }
 
     // Return the prepared headers.
@@ -152,9 +149,7 @@ abstract base class SessionClient extends NccClient {
 
     // If the session was re-established, update the network state.
     if (_isUnderState(state: NetworkState.notLoggedIn)) {
-      _changeNetworkStatus(
-        newState: NetworkState.reLogged,
-      );
+      _changeNetworkStatus(newState: NetworkState.reLogged);
     }
 
     // Save the cookies from the response (for session persistence).
@@ -172,19 +167,13 @@ abstract base class SessionClient extends NccClient {
       final renewSuccess = await renewSession();
 
       if (!renewSuccess) {
-        _changeNetworkStatus(
-          newState: NetworkState.notLoggedIn,
-        );
+        _changeNetworkStatus(newState: NetworkState.notLoggedIn);
         final exception = NotLoggedInException();
-        _onError(
-          error: exception,
-        );
+        _onError(error: exception);
         throw exception;
       }
 
-      _changeNetworkStatus(
-        newState: NetworkState.reLogged,
-      );
+      _changeNetworkStatus(newState: NetworkState.reLogged);
     });
   }
 }

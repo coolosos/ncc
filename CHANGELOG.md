@@ -1,3 +1,12 @@
+## 2.0.0 - 2026-10-13
+### Breaking change
+- Raised the minimum Dart SDK from `>=3.5.0` to `>=3.13.0`, dropping support for Dart 3.5 through 3.12.
+### Changed
+- Migrated all constructors to the concise constructor syntax (`new(...)` / `new name()`) introduced in Dart 3.13.
+- Adopted `coolint` `^3.0.0` and resolved all new analyzer diagnostics (strict inference, `async_return_with_no_await`, `comment_references` and empty container bodies).
+- Upgraded `http` to `^1.6.0` and `meta` to `^1.19.0`.
+- Reformatted the whole project with the Dart 3.13 formatter.
+
 ## 1.0.0 - 2026-02-23
 ### Fixed
 - Fixed broken badge links in README.md to ensure correct visualization on pub.dev.

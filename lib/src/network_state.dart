@@ -14,8 +14,7 @@ enum NetworkState {
   underMaintenance,
   offline,
   notLoggedIn,
-  reLogged,
-  ;
+  reLogged;
 
   /// Resolves a value based on the current network state by providing
   /// different functions to handle each possible state.

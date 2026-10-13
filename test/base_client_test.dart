@@ -6,7 +6,7 @@ import 'clients/mock_success_request_client.dart';
 import 'observer/client_observer.dart';
 
 final class TestNccClient extends NccClient {
-  TestNccClient({
+  new({
     required super.client,
     required super.id,
     super.timeout = const Duration(milliseconds: 200),
@@ -15,7 +15,7 @@ final class TestNccClient extends NccClient {
 
 // ignore: must_be_immutable reason: test
 final class BaseClientTest extends BaseClient {
-  BaseClientTest({required super.client, required super.id});
+  new({required super.client, required super.id});
 
   Map<String, String> headersChange = {};
 
@@ -35,212 +35,135 @@ final class BaseClientTest extends BaseClient {
 }
 
 void main() {
-  group(
-    'Base function',
-    () {
-      test(
-        'BaseClientTest normalize function put call headers',
-        () async {
-          final normalizeClient = BaseClientTest(
-            client: MockSuccessRequestClient(),
-            id: 'normalizeClient',
-          );
-          final newHeaders = {'key': 'key'};
-          await normalizeClient.get(
-            Uri.parse('https://www.google.com/'),
-            headers: newHeaders,
-          );
-
-          expect(
-            normalizeClient.headersChange,
-            newHeaders,
-          );
-          normalizeClient.headersChange = {};
-
-          await normalizeClient.get(
-            Uri.parse('https://www.google.com/'),
-          );
-
-          expect(
-            normalizeClient.headersChange,
-            {},
-          );
-        },
-      );
-      test(
-        'toString function',
-        () async {
-          final successRequestNccClient = TestNccClient(
-            client: MockSuccessRequestClient(),
-            id: 'successRequestNccClient',
-          );
-
-          expect(
-            successRequestNccClient.toString(),
-            'BaseClient(id: ${successRequestNccClient.id})',
-          );
-        },
-      );
-      test(
-        'Operator == different ',
-        () async {
-          final successRequestNccClient = TestNccClient(
-            client: MockSuccessRequestClient(),
-            id: 'successRequestNccClient',
-          );
-
-          final infinityClient = TestNccClient(
-            client: MockInfinityRequestClient(),
-            id: 'infinityClient',
-          );
-          expect(
-            successRequestNccClient == infinityClient,
-            false,
-          );
-        },
-      );
-      test(
-        'Operator == same id',
-        () async {
-          final successRequestNccClient = TestNccClient(
-            client: MockSuccessRequestClient(),
-            id: 'successRequestNccClient',
-          );
-
-          final infinityClient = TestNccClient(
-            client: MockInfinityRequestClient(),
-            id: 'successRequestNccClient',
-          );
-          expect(
-            successRequestNccClient == infinityClient,
-            true,
-          );
-        },
-      );
-      test(
-        'Operator == identical',
-        () async {
-          final successRequestNccClient = TestNccClient(
-            client: MockSuccessRequestClient(),
-            id: 'successRequestNccClient',
-          );
-          final successRequestNccClientIdentical = TestNccClient(
-            client: MockSuccessRequestClient(),
-            id: 'successRequestNccClient',
-          );
-
-          expect(
-            successRequestNccClient == successRequestNccClientIdentical,
-            true,
-          );
-        },
-      );
-
-      test(
-        'hashCode',
-        () async {
-          final successRequestNccClient = TestNccClient(
-            client: MockSuccessRequestClient(),
-            id: 'successRequestNccClient',
-          );
-
-          expect(
-            successRequestNccClient.hashCode > 0,
-            true,
-          );
-        },
-      );
-
-      final observer = ClientObserver();
-      final observerChecker = TestNccClient(
+  group('Base function', () {
+    test('BaseClientTest normalize function put call headers', () async {
+      final normalizeClient = BaseClientTest(
         client: MockSuccessRequestClient(),
-        id: 'observerChecker',
+        id: 'normalizeClient',
+      );
+      final newHeaders = {'key': 'key'};
+      await normalizeClient.get(
+        Uri.parse('https://www.google.com/'),
+        headers: newHeaders,
       );
 
-      final noObserverChecker = TestNccClient(
+      expect(normalizeClient.headersChange, newHeaders);
+      normalizeClient.headersChange = {};
+
+      await normalizeClient.get(Uri.parse('https://www.google.com/'));
+
+      expect(normalizeClient.headersChange, <String, String>{});
+    });
+    test('toString function', () async {
+      final successRequestNccClient = TestNccClient(
         client: MockSuccessRequestClient(),
-        id: 'observerChecker',
+        id: 'successRequestNccClient',
       );
 
-      test(
-        'on add observer',
-        () async {
-          observerChecker.addObserver(observer);
-          expect(
-            observerChecker.isObservable,
-            true,
-          );
-          expect(noObserverChecker.isObservable, false);
-        },
+      expect(
+        successRequestNccClient.toString(),
+        'BaseClient(id: ${successRequestNccClient.id})',
       );
-
-      test(
-        'on remove observer',
-        () async {
-          observerChecker.removeObserver(observer);
-          expect(
-            observerChecker.isObservable,
-            false,
-          );
-        },
-      );
-
-      final globalObserver = ClientObserver();
-      final globalObserverChecker = TestNccClient(
+    });
+    test('Operator == different ', () async {
+      final successRequestNccClient = TestNccClient(
         client: MockSuccessRequestClient(),
-        id: 'observerChecker',
+        id: 'successRequestNccClient',
       );
 
-      final noGlobalObserverChecker = TestNccClient(
+      final infinityClient = TestNccClient(
+        client: MockInfinityRequestClient(),
+        id: 'infinityClient',
+      );
+      expect(successRequestNccClient == infinityClient, false);
+    });
+    test('Operator == same id', () async {
+      final successRequestNccClient = TestNccClient(
         client: MockSuccessRequestClient(),
-        id: 'observerChecker',
+        id: 'successRequestNccClient',
       );
 
-      test(
-        'on add global observer',
-        () async {
-          GlobalNetworkObservable.addObserver(globalObserver);
-          expect(
-            globalObserverChecker.isObservable,
-            false,
-          );
-          expect(noGlobalObserverChecker.isObservable, false);
-
-          expect(
-            globalObserverChecker.isGlobalObservable,
-            true,
-          );
-          expect(noGlobalObserverChecker.isGlobalObservable, true);
-        },
+      final infinityClient = TestNccClient(
+        client: MockInfinityRequestClient(),
+        id: 'successRequestNccClient',
+      );
+      expect(successRequestNccClient == infinityClient, true);
+    });
+    test('Operator == identical', () async {
+      final successRequestNccClient = TestNccClient(
+        client: MockSuccessRequestClient(),
+        id: 'successRequestNccClient',
+      );
+      final successRequestNccClientIdentical = TestNccClient(
+        client: MockSuccessRequestClient(),
+        id: 'successRequestNccClient',
       );
 
-      test(
-        'on remove global observer',
-        () async {
-          GlobalNetworkObservable.removeObserver(globalObserver);
-          expect(
-            globalObserverChecker.isObservable,
-            false,
-          );
+      expect(successRequestNccClient == successRequestNccClientIdentical, true);
+    });
 
-          expect(
-            noGlobalObserverChecker.isGlobalObservable,
-            false,
-          );
-        },
+    test('hashCode', () async {
+      final successRequestNccClient = TestNccClient(
+        client: MockSuccessRequestClient(),
+        id: 'successRequestNccClient',
       );
 
-      test(
-        'on dispose global observer',
-        () async {
-          GlobalNetworkObservable.addObserver(globalObserver);
-          GlobalNetworkObservable.dispose();
-          expect(
-            GlobalNetworkObservable.observers,
-            <NetworkObserver>{},
-          );
-        },
-      );
-    },
-  );
+      expect(successRequestNccClient.hashCode > 0, true);
+    });
+
+    final observer = ClientObserver();
+    final observerChecker = TestNccClient(
+      client: MockSuccessRequestClient(),
+      id: 'observerChecker',
+    );
+
+    final noObserverChecker = TestNccClient(
+      client: MockSuccessRequestClient(),
+      id: 'observerChecker',
+    );
+
+    test('on add observer', () async {
+      observerChecker.addObserver(observer);
+      expect(observerChecker.isObservable, true);
+      expect(noObserverChecker.isObservable, false);
+    });
+
+    test('on remove observer', () async {
+      observerChecker.removeObserver(observer);
+      expect(observerChecker.isObservable, false);
+    });
+
+    final globalObserver = ClientObserver();
+    final globalObserverChecker = TestNccClient(
+      client: MockSuccessRequestClient(),
+      id: 'observerChecker',
+    );
+
+    final noGlobalObserverChecker = TestNccClient(
+      client: MockSuccessRequestClient(),
+      id: 'observerChecker',
+    );
+
+    test('on add global observer', () async {
+      GlobalNetworkObservable.addObserver(globalObserver);
+      expect(globalObserverChecker.isObservable, false);
+      expect(noGlobalObserverChecker.isObservable, false);
+
+      expect(globalObserverChecker.isGlobalObservable, true);
+      expect(noGlobalObserverChecker.isGlobalObservable, true);
+    });
+
+    test('on remove global observer', () async {
+      GlobalNetworkObservable.removeObserver(globalObserver);
+      expect(globalObserverChecker.isObservable, false);
+
+      expect(noGlobalObserverChecker.isGlobalObservable, false);
+    });
+
+    test('on dispose global observer', () async {
+      GlobalNetworkObservable.addObserver(globalObserver);
+      GlobalNetworkObservable.dispose();
+      expect(GlobalNetworkObservable.observers, <NetworkObserver>{});
+    });
+  });
 }

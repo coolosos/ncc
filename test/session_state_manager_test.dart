@@ -2,7 +2,7 @@ import 'package:ncc/src/network_client/session_state_manager.dart';
 import 'package:test/test.dart';
 
 final class _TestSessionStateManager extends SessionStateManager {
-  const _TestSessionStateManager();
+  const new();
 
   @override
   String? getCookie(String clientId) => null;

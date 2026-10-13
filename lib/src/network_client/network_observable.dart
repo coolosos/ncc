@@ -15,8 +15,10 @@ mixin NetworkObservable on BaseClient {
   /// This includes both the local observers specific to the client instance
   /// and the global observers registered through [GlobalNetworkObservable].
   /// Duplicates are automatically handled since sets do not allow them.
-  Set<NetworkObserver> get _observers =>
-      {..._localNetworkObservers, ...GlobalNetworkObservable.observers};
+  Set<NetworkObserver> get _observers => {
+    ..._localNetworkObservers,
+    ...GlobalNetworkObservable.observers,
+  };
 
   ///Determinate if the [BaseClient] contains any local observer
   bool get isObservable => _localNetworkObservers.isNotEmpty;
@@ -42,9 +44,7 @@ mixin NetworkObservable on BaseClient {
   ///
   /// This method returns `true` if the client is in the given state, otherwise `false`.
   @protected
-  bool _isUnderState({
-    required NetworkState state,
-  }) {
+  bool _isUnderState({required NetworkState state}) {
     return clientState == state;
   }
 
@@ -54,9 +54,7 @@ mixin NetworkObservable on BaseClient {
   /// This method will only notify observers if the state has changed, and it will
   /// prevent unnecessary notifications if the client is already in the new state.
   @protected
-  void _changeNetworkStatus({
-    required NetworkState newState,
-  }) {
+  void _changeNetworkStatus({required NetworkState newState}) {
     final previousState = clientState;
 
     // Check if a re-login is needed or if the state is actually unchanged.
@@ -93,9 +91,7 @@ mixin NetworkObservable on BaseClient {
   /// This method is called when an HTTP response is received. It creates a detailed
   /// `OnResponse` object and notifies all observers about the response.
   @protected
-  void _onResponse({
-    required Response response,
-  }) {
+  void _onResponse({required Response response}) {
     final onResponse = OnResponse(
       uri: response.request?.url,
       statusCode: response.statusCode,
@@ -106,10 +102,7 @@ mixin NetworkObservable on BaseClient {
 
     // Notify all observers about the received response.
     for (final observer in _observers) {
-      observer.onResponse(
-        response: onResponse,
-        client: this,
-      );
+      observer.onResponse(response: onResponse, client: this);
     }
   }
 
@@ -118,17 +111,10 @@ mixin NetworkObservable on BaseClient {
   /// This method is called when an error occurs during the network request. It
   /// notifies all observers about the error, passing along the error and stack trace.
   @protected
-  void _onError({
-    required Object error,
-    StackTrace? stackTrace,
-  }) {
+  void _onError({required Object error, StackTrace? stackTrace}) {
     // Notify all observers about the error that occurred.
     for (final observer in _observers) {
-      observer.onError(
-        error: error,
-        stackTrace: stackTrace,
-        client: this,
-      );
+      observer.onError(error: error, stackTrace: stackTrace, client: this);
     }
   }
 

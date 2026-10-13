@@ -18,8 +18,7 @@ base class MockClient extends Fake implements Client {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
-      genericResponse;
+  }) => genericResponse;
 
   @override
   Future<Response> post(
@@ -27,8 +26,7 @@ base class MockClient extends Fake implements Client {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
-      genericResponse;
+  }) => genericResponse;
 
   @override
   Future<Response> delete(
@@ -36,8 +34,7 @@ base class MockClient extends Fake implements Client {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
-      genericResponse;
+  }) => genericResponse;
 
   @override
   Future<Response> head(Uri url, {Map<String, String>? headers}) =>
@@ -49,6 +46,5 @@ base class MockClient extends Fake implements Client {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
-      genericResponse;
+  }) => genericResponse;
 }
