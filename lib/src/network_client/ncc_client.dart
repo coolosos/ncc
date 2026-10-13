@@ -86,13 +86,20 @@ class NccClient extends BaseClient with NetworkObservable {
       return response;
     } catch (error, stackTrace) {
       // Handle network-related or client-side errors and update the status accordingly.
-      _handleErrors(error, stackTrace);
+      final mappedException = _handleErrors(error, stackTrace);
+      if (mappedException != null) {
+        // Throw the mapped exception preserving the original stack trace.
+        Error.throwWithStackTrace(mappedException, stackTrace);
+      }
       rethrow;
     }
   }
 
   /// Handles errors, updating network status and notifying observers.
-  void _handleErrors(Object error, StackTrace? stackTrace) {
+  ///
+  /// Returns the mapped [NetworkException] when the error can be translated to a
+  /// domain exception, or `null` when the original error must be propagated as is.
+  NetworkException? _handleErrors(Object error, StackTrace? stackTrace) {
     NetworkException? exception;
     // Determine the network state based on the error type.
     final isOffline = error is SocketException || error is ClientException;
@@ -110,8 +117,6 @@ class NccClient extends BaseClient with NetworkObservable {
 
     _onError(error: error, stackTrace: stackTrace);
 
-    if (exception case final exception?) {
-      throw exception;
-    }
+    return exception;
   }
 }
