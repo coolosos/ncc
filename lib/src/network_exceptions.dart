@@ -14,6 +14,13 @@ sealed class NetworkException implements Exception;
 /// connect to the internet or if there are connection timeout issues.
 base class NetworkAvailabilityException implements NetworkException;
 
+/// Exception thrown when a request does not complete within the configured
+/// timeout.
+///
+/// This class represents errors caused by a request taking longer than the
+/// allowed time and being aborted.
+base class NetworkTimeoutException implements NetworkException;
+
 /// Exception thrown when the server is unavailable, typically when the
 /// server is down or unreachable.
 ///

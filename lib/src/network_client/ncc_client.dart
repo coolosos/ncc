@@ -86,32 +86,35 @@ class NccClient extends BaseClient with NetworkObservable {
       return response;
     } catch (error, stackTrace) {
       // Handle network-related or client-side errors and update the status accordingly.
-      _handleErrors(error, stackTrace);
+      final mappedException = _handleErrors(error, stackTrace);
+      if (mappedException case final mappedException?) {
+        Error.throwWithStackTrace(mappedException, stackTrace);
+      }
       rethrow;
     }
   }
 
   /// Handles errors, updating network status and notifying observers.
-  void _handleErrors(Object error, StackTrace? stackTrace) {
+  ///
+  /// Returns the mapped [NetworkException] when the error represents a known
+  /// network failure, or `null` so the original error is rethrown as-is.
+  NetworkException? _handleErrors(Object error, StackTrace? stackTrace) {
     NetworkException? exception;
     // Determine the network state based on the error type.
-    final isOffline = error is SocketException || error is ClientException;
-    if (isOffline) {
+    if (error is TimeoutException) {
       _changeNetworkStatus(newState: NetworkState.offline);
-      _onError(error: NetworkAvailabilityException(), stackTrace: stackTrace);
+      exception = NetworkTimeoutException();
+    } else if (error is SocketException || error is ClientException) {
+      _changeNetworkStatus(newState: NetworkState.offline);
       exception = NetworkAvailabilityException();
-    }
-
-    ///Determine the case when the server is under maintenance.
-    if (error is ServerAvailabilityException) {
+    } else if (error is ServerAvailabilityException) {
       _changeNetworkStatus(newState: NetworkState.underMaintenance);
       exception = ServerAvailabilityException();
     }
 
-    _onError(error: error, stackTrace: stackTrace);
+    // Notify observers a single time, preferring the mapped domain exception.
+    _onError(error: exception ?? error, stackTrace: stackTrace);
 
-    if (exception case final exception?) {
-      throw exception;
-    }
+    return exception;
   }
 }
