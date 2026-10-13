@@ -1,4 +1,4 @@
-# network_cool_client
+# ncc
 
 A robust Dart package for efficient network request handling, session management, real-time network state tracking, and seamless error handling for modern applications.
 
@@ -28,7 +28,7 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  network_cool_client: ^1.0.0
+  ncc: ^2.0.0
 ```
 
 Then run:
@@ -71,7 +71,7 @@ You can customize token renewal, header logic, and handle session expiration sea
 
 ## 📚 API Reference
 
-Check the full API reference on [pub.dev → network_cool_client](https://pub.dev/packages/network_cool_client).
+Check the full API reference on [pub.dev → ncc](https://pub.dev/packages/ncc).
 
 ---
 
