@@ -102,6 +102,19 @@ void main() {
       expect(successRequestNccClient == successRequestNccClientIdentical, true);
     });
 
+    test('Operator == does not throw for an unrelated Object', () async {
+      final successRequestNccClient = TestNccClient(
+        client: MockSuccessRequestClient(),
+        id: 'successRequestNccClient',
+      );
+
+      final unrelatedValues = [42, 'successRequestNccClient', Object()];
+
+      for (final value in unrelatedValues) {
+        expect(successRequestNccClient == value, false);
+      }
+    });
+
     test('hashCode', () async {
       final successRequestNccClient = TestNccClient(
         client: MockSuccessRequestClient(),

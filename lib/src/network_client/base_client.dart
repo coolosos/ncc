@@ -154,10 +154,10 @@ abstract class BaseClient implements ClientMethods {
   String toString() => 'BaseClient(id: $id)';
 
   @override
-  bool operator ==(covariant BaseClient other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other.id == id;
+    return other is BaseClient && other.id == id;
   }
 
   @override
