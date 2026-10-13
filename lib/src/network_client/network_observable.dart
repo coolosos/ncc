@@ -57,9 +57,8 @@ mixin NetworkObservable on BaseClient {
   void _changeNetworkStatus({required NetworkState newState}) {
     final previousState = clientState;
 
-    // Check if a re-login is needed or if the state is actually unchanged.
-    final isActuallyReLogin = _isActuallyReLogin(previousState, newState);
-    if (newState == previousState || isActuallyReLogin) {
+    // Nothing to do when the state did not change.
+    if (newState == previousState) {
       return;
     }
 
@@ -74,16 +73,6 @@ mixin NetworkObservable on BaseClient {
 
     // Update the network state.
     setClientState(newState);
-  }
-
-  /// Determines if the previous state indicates the client needs a re-login.
-  ///
-  /// This helper method checks whether the previous state was `notLoggedIn` and
-  /// if the new state is not `reLogged`, which might indicate a need for a re-login.
-  @protected
-  bool _isActuallyReLogin(NetworkState previousState, NetworkState newState) {
-    return previousState == NetworkState.notLoggedIn &&
-        newState != NetworkState.reLogged;
   }
 
   /// Handles HTTP response by notifying observers about the response details.
