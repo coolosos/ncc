@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:ncc/ncc.dart';
 
 import 'package:test/test.dart';
@@ -53,13 +51,13 @@ void main() {
           Uri.dataFromString('test_dart.es'),
           headers: {'key': 'key'},
         ),
-        throwsA(isA<TimeoutException>()),
+        throwsA(isA<NetworkTimeoutException>()),
       );
     });
     test('Post timeout', () {
       expect(
         () => testTimeOutClient.post(Uri.dataFromString('test_dart.es')),
-        throwsA(isA<TimeoutException>()),
+        throwsA(isA<NetworkTimeoutException>()),
       );
     });
     test('Delete timeout', () {
@@ -68,7 +66,7 @@ void main() {
           Uri.dataFromString('test_dart.es'),
           headers: {'key': 'key'},
         ),
-        throwsA(isA<TimeoutException>()),
+        throwsA(isA<NetworkTimeoutException>()),
       );
     });
     test('Head timeout', () {
@@ -77,7 +75,7 @@ void main() {
           Uri.dataFromString('test_dart.es'),
           headers: {'key': 'key'},
         ),
-        throwsA(isA<TimeoutException>()),
+        throwsA(isA<NetworkTimeoutException>()),
       );
     });
     test('Patch timeout', () {
@@ -86,7 +84,7 @@ void main() {
           Uri.dataFromString('test_dart.es'),
           headers: {'key': 'key'},
         ),
-        throwsA(isA<TimeoutException>()),
+        throwsA(isA<NetworkTimeoutException>()),
       );
     });
     test('Put timeout', () {
@@ -95,7 +93,7 @@ void main() {
           Uri.dataFromString('test_dart.es'),
           headers: {'key': 'key'},
         ),
-        throwsA(isA<TimeoutException>()),
+        throwsA(isA<NetworkTimeoutException>()),
       );
     });
   });
