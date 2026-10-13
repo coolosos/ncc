@@ -3,11 +3,7 @@ import 'dart:developer';
 import 'package:ncc/ncc.dart';
 
 class CustomNetworkObserver implements NetworkObserver {
-  CustomNetworkObserver({
-    this.onUndermantenance,
-    this.onOffline,
-    this.onNotLoggedIn,
-  });
+  new({this.onUndermantenance, this.onOffline, this.onNotLoggedIn});
 
   final Future<void> Function()? onUndermantenance;
   final Future<void> Function()? onOffline;
@@ -54,10 +50,7 @@ class CustomNetworkObserver implements NetworkObserver {
   }
 
   @override
-  void onResponse({
-    required OnResponse response,
-    required BaseClient client,
-  }) {
+  void onResponse({required OnResponse response, required BaseClient client}) {
     log(response.body ?? '');
   }
 

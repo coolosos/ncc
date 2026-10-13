@@ -14,18 +14,12 @@ abstract interface class ClientMethods {
   /// Only the headers are returned in the response, not the body.
   ///
   /// Optional [headers] can be included in the request.
-  Future<Response> head(
-    Uri url, {
-    Map<String, String>? headers,
-  });
+  Future<Response> head(Uri url, {Map<String, String>? headers});
 
   /// Sends an HTTP GET request to the given [url].
   ///
   /// Optional [headers] can be included in the request.
-  Future<Response> get(
-    Uri url, {
-    Map<String, String>? headers,
-  });
+  Future<Response> get(Uri url, {Map<String, String>? headers});
 
   /// Sends an HTTP POST request to the given [url].
   ///

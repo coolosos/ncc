@@ -39,10 +39,7 @@ abstract class BaseClient implements ClientMethods {
   ///
   /// The [client] is used to perform the actual HTTP operations.
   /// The [id] helps uniquely identify this client instance.
-  const BaseClient({
-    required this.client,
-    required this.id,
-  });
+  const new({required this.client, required this.id});
 
   /// The underlying HTTP client used to perform requests.
   final Client client;
@@ -56,41 +53,28 @@ abstract class BaseClient implements ClientMethods {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
+  }) => executeRequest(
+    headers: normalizeHeaders(headers),
+    send: (finalHeaders) => client.delete(
+      url,
+      headers: finalHeaders,
+      body: body,
+      encoding: encoding,
+    ),
+  );
+
+  @override
+  Future<Response> get(Uri url, {Map<String, String>? headers}) =>
       executeRequest(
         headers: normalizeHeaders(headers),
-        send: (finalHeaders) => client.delete(
-          url,
-          headers: finalHeaders,
-          body: body,
-          encoding: encoding,
-        ),
+        send: (finalHeaders) => client.get(url, headers: finalHeaders),
       );
 
   @override
-  Future<Response> get(
-    Uri url, {
-    Map<String, String>? headers,
-  }) =>
+  Future<Response> head(Uri url, {Map<String, String>? headers}) =>
       executeRequest(
         headers: normalizeHeaders(headers),
-        send: (finalHeaders) => client.get(
-          url,
-          headers: finalHeaders,
-        ),
-      );
-
-  @override
-  Future<Response> head(
-    Uri url, {
-    Map<String, String>? headers,
-  }) =>
-      executeRequest(
-        headers: normalizeHeaders(headers),
-        send: (finalHeaders) => client.head(
-          url,
-          headers: finalHeaders,
-        ),
+        send: (finalHeaders) => client.head(url, headers: finalHeaders),
       );
 
   @override
@@ -99,16 +83,15 @@ abstract class BaseClient implements ClientMethods {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
-      executeRequest(
-        headers: normalizeHeaders(headers),
-        send: (finalHeaders) => client.patch(
-          url,
-          headers: finalHeaders,
-          body: body,
-          encoding: encoding,
-        ),
-      );
+  }) => executeRequest(
+    headers: normalizeHeaders(headers),
+    send: (finalHeaders) => client.patch(
+      url,
+      headers: finalHeaders,
+      body: body,
+      encoding: encoding,
+    ),
+  );
 
   @override
   Future<Response> post(
@@ -116,16 +99,11 @@ abstract class BaseClient implements ClientMethods {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
-      executeRequest(
-        headers: normalizeHeaders(headers),
-        send: (finalHeaders) => client.post(
-          url,
-          headers: finalHeaders,
-          body: body,
-          encoding: encoding,
-        ),
-      );
+  }) => executeRequest(
+    headers: normalizeHeaders(headers),
+    send: (finalHeaders) =>
+        client.post(url, headers: finalHeaders, body: body, encoding: encoding),
+  );
 
   @override
   Future<Response> put(
@@ -133,16 +111,11 @@ abstract class BaseClient implements ClientMethods {
     Map<String, String>? headers,
     Object? body,
     Encoding? encoding,
-  }) =>
-      executeRequest(
-        headers: normalizeHeaders(headers),
-        send: (finalHeaders) => client.put(
-          url,
-          headers: finalHeaders,
-          body: body,
-          encoding: encoding,
-        ),
-      );
+  }) => executeRequest(
+    headers: normalizeHeaders(headers),
+    send: (finalHeaders) =>
+        client.put(url, headers: finalHeaders, body: body, encoding: encoding),
+  );
 
   /// Executes the HTTP request using the provided [send] function and [headers].
   ///

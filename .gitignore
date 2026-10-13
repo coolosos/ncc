@@ -16,6 +16,8 @@ check_coverage.sh
 # dotenv environment variables file
 .env*
 
+.DS_Store
+
 # Avoid committing generated Javascript files:
 *.dart.js
 *.info.json      # Produced by the --dump-info flag.

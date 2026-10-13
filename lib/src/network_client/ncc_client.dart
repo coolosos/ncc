@@ -13,7 +13,7 @@ class NccClient extends BaseClient with NetworkObservable {
   /// [timeout] specifies the duration to wait for a server response before timing out (default is 30 seconds).
   /// [defaultHeaders] contains headers that will be sent with every request, but can be overridden by custom headers.
   /// [observers] - Observers that listener every request.
-  NccClient({
+  new({
     required super.client,
     required super.id,
     this.timeout = const Duration(seconds: 30),
@@ -55,7 +55,7 @@ class NccClient extends BaseClient with NetworkObservable {
   /// Executes an HTTP request with error handling and state management.
   ///
   /// [headers] are the headers to include in the request. These headers are merged
-  /// with default headers using [initializeHeaders].
+  /// with default headers using [normalizeHeaders].
   /// [send] is a function that performs the actual HTTP request and returns a [Response].
   ///
   /// This method handles various exceptions, including socket errors, client errors,
@@ -98,10 +98,7 @@ class NccClient extends BaseClient with NetworkObservable {
     final isOffline = error is SocketException || error is ClientException;
     if (isOffline) {
       _changeNetworkStatus(newState: NetworkState.offline);
-      _onError(
-        error: NetworkAvailabilityException(),
-        stackTrace: stackTrace,
-      );
+      _onError(error: NetworkAvailabilityException(), stackTrace: stackTrace);
       exception = NetworkAvailabilityException();
     }
 

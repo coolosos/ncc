@@ -14,7 +14,7 @@ final class MockUnauthorizedRequestClient extends MockClient {
   }
 
   @override
-  Future<Response> get genericResponse async {
+  Future<Response> get genericResponse {
     return Future.delayed(const Duration(milliseconds: 300), () {
       return _response;
     });

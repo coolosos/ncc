@@ -43,10 +43,7 @@ abstract interface class NetworkObserver {
   /// - [client]: The `BaseClient` that made the request.
   /// - [response]: The response data received from the server, encapsulated
   ///   in the `OnResponse` object.
-  void onResponse({
-    required BaseClient client,
-    required OnResponse response,
-  });
+  void onResponse({required BaseClient client, required OnResponse response});
 
   /// Dispose of resources when the observer is no longer needed.
   ///

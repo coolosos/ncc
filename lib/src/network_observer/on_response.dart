@@ -11,7 +11,7 @@ base class OnResponse {
   /// - [bodyBytes]: The body of the response as raw bytes (useful for binary data).
   /// - [statusCode]: The HTTP status code returned by the server (e.g., 200, 404, etc.).
   /// - [reasonPhrase]: A brief textual explanation of the HTTP status (e.g., "OK", "Not Found").
-  OnResponse({
+  new({
     this.uri,
     this.body,
     this.bodyBytes,
