@@ -136,12 +136,15 @@ mixin NetworkObservable on BaseClient {
   /// Disposes all local observers registered to this client.
   ///
   /// This does not affect global observers registered in [GlobalNetworkObservable].
+  /// It does, however, drop the network state tracked for this client so a new
+  /// client reusing the same `id` does not inherit a stale state.
   @mustCallSuper
   void dispose() {
     for (final observer in _localNetworkObservers) {
       observer.dispose();
     }
     _localNetworkObservers.clear();
+    GlobalNetworkObservable.removeClientState(this);
   }
 }
 
@@ -181,6 +184,7 @@ final class GlobalNetworkObservable {
       observer.dispose();
     }
     _observers.clear();
+    _networkState.clear();
   }
 
   /// Holds the current [NetworkState] for each [BaseClient] by its `id`.
@@ -200,5 +204,13 @@ final class GlobalNetworkObservable {
   /// This updates the internal state map to reflect the latest state of the client.
   static void setClientState(BaseClient client, NetworkState state) {
     _networkState[client.id] = state;
+  }
+
+  /// Removes the [NetworkState] tracked for the given [client].
+  ///
+  /// Call this when a client is disposed to avoid keeping stale state around and
+  /// to prevent a new client reusing the same `id` from inheriting it.
+  static void removeClientState(BaseClient client) {
+    _networkState.remove(client.id);
   }
 }
